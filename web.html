@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Som sl bna ot! 💖</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&display=swap');
+
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #ffdeeb;
+            font-family: 'Battambang', sans-serif;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 35px;
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.2);
+            text-align: center;
+            width: 350px;
+            position: relative;
+        }
+
+        /* រូបភាព Emoji មានចលនា */
+        #animated-emoji {
+            width: 180px;
+            height: 180px;
+            margin-bottom: 20px;
+            object-fit: contain;
+        }
+
+        h1 {
+            color: #ff4d6d;
+            font-size: 20px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #yesBtn {
+            background: #ff4d6d;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
+        }
+
+        #noBtn {
+            background: #ff00007d;
+            color: #ffffff;
+        }
+
+        /* បេះដូងហោះពេលចុច Yes */
+        .heart {
+            position: fixed;
+            font-size: 25px;
+            animation: fly 3s linear forwards;
+            pointer-events: none;
+        }
+
+        @keyframes fly {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img id="animated-emoji" src="https://media.tenor.com/TUVAE2M_wz4AAAAi/chubby-tonton.gif" alt="Smile">
+        
+        <h1 id="questionText">តើអ្នកយល់ព្រមធ្វើជា Valentine របស់ខ្ញុំទេ? ✨</h1>
+        
+        <div class="btn-group">
+            <button id="yesBtn">យល់ព្រម</button>
+            <button id="noBtn">ទេ</button>
+        </div>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const emoji = document.getElementById('animated-emoji');
+        const questionText = document.getElementById('questionText');
+
+        let noCount = 0;
+
+        // បញ្ជី Link រូបភាព Emoji មានចលនា (ប្តូរតាមកម្រិតភាពក្រៀមក្រំ)
+        const sadGifs = [
+            "https://media.tenor.com/pZk_U5JVWzUAAAAi/tonton-friends-tonton.gif",
+            "https://media.tenor.com/Jkha__Yjf0oAAAAi/sad-depression.gif",
+            "https://media.tenor.com/U0OPHZokzkUAAAAi/what-seriously.gif",
+            "https://media.tenor.com/WKXMmSk3JJsAAAAi/chubby-tonton.gif",
+            "https://media.tenor.com/ZHWV13jliTAAAAAi/chubby-tonton.gif",
+            "https://media.tenor.com/pZk_U5JVWzUAAAAi/tonton-friends-tonton.gif",
+
+        ];
+
+        const messages = ["ទេ", "គិតម្ដងទៀតមើល៍? 🥺", "កុំអីណា៎... 😭", "ចប់ហើយ បើចុច 'ទេ' ទៀត!😪" ,"ចិត្តអាក្រក់មេសយើងនឹង😪" , "អស់ជម្រើសហើយចុចយល់ព្រមទៅ😒" , "ធ្វើសង្សារMeសន្យាថានឹងជូបទៅញាំអីឆ្ងាញ់ៗ❤️" , "និយាយមែនណា😔" , "ចុចយល់ព្រមទៅ😭"];
+
+        noBtn.addEventListener('click', () => {
+            noCount++;
+
+            // ១. ប្តូរ Emoji ឲ្យកាន់តែ Sad (Animated)
+            let gifIndex = Math.min(noCount, sadGifs.length - 1);
+            emoji.src = sadGifs[gifIndex];
+
+            // ២. បង្កើនទំហំ Button យល់ព្រម
+            let yesSize = 18 + (noCount * 15);
+            yesBtn.style.fontSize = yesSize + "px";
+            yesBtn.style.padding = (yesSize / 2) + "px " + (yesSize) + "px";
+
+            // ៣. ប្តូរអក្សរ Button ទេ
+            let msgIndex = Math.min(noCount, messages.length - 1);
+            noBtn.innerText = messages[msgIndex];
+        });
+
+        yesBtn.addEventListener('click', () => {
+            // ពេលចុច "យល់ព្រម" ប្តូរទៅ Emoji សប្បាយចិត្តបំផុត (Animated)
+            emoji.src = "https://media.tenor.com/ACi1vdjNbpIAAAAi/%EC%9C%A0%ED%83%80-%ED%86%A4%ED%86%A4%ED%94%84%EB%A0%8C%EC%A6%88.gif";
+            questionText.innerText = "យេ! គួរឲ្យស្រឡាញ់មេសយើងនឹង! ចាំជួបគ្នាណា! 💖💋";
+            
+            noBtn.style.display = 'none';
+            yesBtn.innerText = "Happy Valentine's Day!";
+            yesBtn.style.fontSize = "20px";
+            yesBtn.style.padding = "15px 30px";
+
+            // បង្កើតបេះដូងហោះ
+            setInterval(createHeart, 200);
+        });
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.top = "100vh";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 3000);
+        }
+    </script>
+</body>
+</html>
